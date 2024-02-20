@@ -13,6 +13,7 @@
  */
 
 $file = 'postgraduate/test-pg.txt';
+//$file = 'undergraduate/test-ug.txt';
 
 /**
  * 4. ($links) - This variable is set equal to the file($file). The PHP function file() takes each link and builds an array so we can loop over.
@@ -28,24 +29,28 @@ set_time_limit(0);
 /**
  * 6. Loop (foreach) - This function loops over the array. All the following code occurs inside the loop.
  */
+// Check that there is a links array.
 if ($links) {
+  // If true, loop over the array od url's.
   foreach ($links as $key => $link) {
+    // Check there is a value for each url.
     if ($link) {
+      // We can use this function to separate the url's into parts.
       $urlParts = parse_url(trim($link));
-
+      // The above function allows us to target the part we need. In this case the path.
       $path = trim($urlParts['path'], '/');
-
+      // Here we create a folder structure match that of the url list.
       if (!file_exists($path)) {
         mkdir($path, 0777, true);
       }
-
+      // We now add an index.html file to each of the folder.
       $file =  $path . '/index.html';
-
+      // The following function gets the contents of each file.
       $content = file_get_contents(trim($link));
-      
-// Here we add the include file that contains the str_replace functions to update the pages.
+      // Here we add the include file that contains the str_replace functions to update the pages. Comment/uncomment as required.
       include 'includes/include-pg.php';
-
+      // include 'includes/include-ug.php';
+      // We can now write the contents of each file in turn to the appropriate file index.html file.
       file_put_contents($file, $content);
     } else {
       exit();
