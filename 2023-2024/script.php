@@ -53,8 +53,10 @@ if ($links) {
       // We can now write the contents of each file in turn to the appropriate file index.html file.
       file_put_contents($file, $content);
     } else {
-      exit();
+      echo 'process complete';
     }
   }
+} else {
+  echo 'No files to loop over';
 }
-echo 'process complete';
+
